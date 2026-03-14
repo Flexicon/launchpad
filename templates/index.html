@@ -58,7 +58,7 @@
             {% if svc.description %}<p>{{ svc.description }}</p>{% endif %}
 
             <p>
-            <a href="{{ svc.url }}" class="button {% if local %}primary{% endif %}" target="_blank" rel="noopener">
+            <a href="{{ svc.url }}" class="button {% if not svc.external_url or local %}primary{% endif %}" target="_blank" rel="noopener">
               <code>&#127968; {{ svc.url }}</code> &#x2197;
             </a>
           </p>
