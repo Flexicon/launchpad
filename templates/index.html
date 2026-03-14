@@ -50,14 +50,26 @@
       {% if services %}
       <div class="layout-card" style="--min-card-width: 300px;">
         {% for svc in services %}
-        {% set href = svc.url if (local or not svc.external_url) else svc.external_url %}
         <article class="card">
           <header>
             <h3>{{ svc.name }}</h3>
           </header>
           <div class="card-body">
             {% if svc.description %}<p>{{ svc.description }}</p>{% endif %}
-            <p><code>{{ href }}</code></p>
+
+            <p>
+            <a href="{{ svc.url }}" class="button {% if local %}primary{% endif %}" target="_blank" rel="noopener">
+              <code>&#127968; {{ svc.url }}</code> &#x2197;
+            </a>
+          </p>
+          {% if svc.external_url %}
+          <p>
+            <a href="{{ svc.external_url }}" class="button {% if not local %}primary{% endif %}" target="_blank" rel="noopener">
+              <code>&#127760; {{ svc.external_url }}</code> &#x2197;
+            </a>
+          </p>
+          {% endif %}
+
             {% if svc.tags %}
             <div class="cluster" style="--gap: 0.25rem; margin-top: 0.5rem;">
               {% for tag in svc.tags %}
@@ -66,9 +78,6 @@
             </div>
             {% endif %}
           </div>
-          <footer>
-            <a href="{{ href }}" target="_blank" rel="noopener" class="button primary">Open &#x2197;</a>
-          </footer>
         </article>
         {% endfor %}
       </div>
