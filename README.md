@@ -26,6 +26,22 @@ The install script clones the repo to `/opt/launchpad`, creates a dedicated syst
 
 ## Manual Setup
 
+**Requirements:** Python 3.x, Docker (running)
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Flexicon/launchpad.git
+cd launchpad
+```
+
+Set up a virtual environment (recommended):
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
 Install dependencies:
 
 ```bash
