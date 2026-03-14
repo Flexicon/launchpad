@@ -12,7 +12,7 @@ A homeserver index page that displays your configured services and running Docke
 curl -fsSL https://raw.githubusercontent.com/Flexicon/launchpad/main/install.sh | sudo bash
 ```
 
-That's it. Launchpad will be running at **http://localhost:7777** and will start automatically on boot.
+That's it. Launchpad will be running at **<http://localhost:7777>** and will start automatically on boot.
 
 Then add your services:
 
@@ -60,7 +60,7 @@ Run the app:
 python app.py
 ```
 
-Launchpad will be available at **http://localhost:7777**.
+Launchpad will be available at **<http://localhost:7777>**.
 
 ## Configuration
 
@@ -70,12 +70,16 @@ Edit `services.yaml`:
 services:
   - name: My App
     url: http://192.168.1.x:8080
-    external_url: https://myapp.example.com  # optional, used when accessing remotely
+    external_url: https://myapp.example.com # optional, used when accessing remotely
     description: A short description
     tags: [web]
 ```
 
 The `external_url` is used automatically when Launchpad is accessed from outside the local network.
+
+## Credits
+
+- [Graffiti-ui](https://graffiti-ui.com/) - standards-first CSS library by [Scott Tolinski](https://github.com/stolinski).
 
 ## License
 
