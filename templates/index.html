@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launchpad</title>
+  <link rel="stylesheet" href="https://unpkg.com/@drop-in/graffiti/dist/index.css">
+  <!-- Theme: Berry -->
+  <style>
+    :root {
+      --fg-light: #1e0a2e;
+      --fg-dark: #f0e0ff;
+      --bg-light: #faf5ff;
+      --bg-dark: #130820;
+      --primary: #8b5cf6;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      --font-size-min: 14;
+      --font-size-max: 15;
+      --font-ratio-min: 1.067;
+      --font-ratio-max: 1.125;
+      --font-width-min: 320;
+      --font-width-max: 1500;
+      --br-xs: 1px;
+      --br-s: 2px;
+      --br-m: 4px;
+      --br-l: 6px;
+      --br-xl: 8px;
+      --br-xxl: 12px;
+    }
+
+    body { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+    .section-title { margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <strong>Launchpad</strong>
+  </header>
+
+  <main class="stack">
+
+    <!-- Static Services -->
+    {% if services is not none %}
+    <section>
+      <h2 class="section-title">Services</h2>
+      {% if services %}
+      <div class="layout-card" style="--min-card-width: 300px;">
+        {% for svc in services %}
+        {% set href = svc.url if (local or not svc.external_url) else svc.external_url %}
+        <article class="card">
+          <header>
+            <h3>{{ svc.name }}</h3>
+          </header>
+          <div class="card-body">
+            {% if svc.description %}<p>{{ svc.description }}</p>{% endif %}
+            <p><code>{{ href }}</code></p>
+            {% if svc.tags %}
+            <div class="cluster" style="--gap: 0.25rem; margin-top: 0.5rem;">
+              {% for tag in svc.tags %}
+              <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <footer>
+            <a href="{{ href }}" target="_blank" rel="noopener" class="button primary">Open &#x2197;</a>
+          </footer>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No services configured. Edit <code>services.yaml</code> to add entries.</p>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    <!-- Docker Containers -->
+    <section>
+      <h2 class="section-title">Docker Containers</h2>
+      {% if docker_error %}
+      <div class="callouts">
+        <div class="error">
+          <strong>Docker error:</strong> {{ docker_error }}
+        </div>
+      </div>
+      {% elif containers %}
+      <article class="card">
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Ports</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in containers %}
+              <tr>
+                <td><strong>{{ c.name }}</strong></td>
+                <td><code>{{ c.image }}</code></td>
+                <td><span class="tag {% if c.status == 'running' %}success{% else %}warning{% endif %}">{{ c.status }}</span></td>
+                <td>
+                  {% for port in c.ports %}
+                  {% if local %}
+                  <a href="http://{{ request.host.split(':')[0] }}:{{ port }}" target="_blank" rel="noopener">
+                    <code>:{{ port }}</code>
+                  </a>
+                  {% else %}
+                  <code>:{{ port }}</code>
+                  {% endif %}
+                  {% endfor %}
+                  {% if not c.ports %}<span class="tag">none</span>{% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </article>
+      {% else %}
+      <p>No running containers found.</p>
+      {% endif %}
+    </section>
+
+  </main>
+
+  <footer class="footer" style="margin-top: 3rem;">
+    <p>Launchpad &mdash; homeserver index</p>
+  </footer>
+</body>
+</html>

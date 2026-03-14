@@ -1,0 +1,10 @@
+services:
+  - name: My App
+    url: http://192.168.1.x:8080
+    external_url: https://myapp.example.com
+    description: A short description
+    tags: [web]
+  - name: Local Only App
+    url: http://192.168.1.x:9000
+    description: No external_url means local URL is always used
+    tags: [tool]

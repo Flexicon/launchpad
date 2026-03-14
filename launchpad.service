@@ -1,0 +1,16 @@
+[Unit]
+Description=Launchpad homeserver index
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=launchpad
+Group=docker
+WorkingDirectory=/opt/launchpad
+ExecStart=/opt/launchpad/venv/bin/python app.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
