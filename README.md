@@ -4,12 +4,27 @@ A homeserver index page that displays your configured services and running Docke
 
 ![Launchpad Screenshot](demo.png)
 
-## Requirements
+## Quick Start (Linux + systemd)
 
-- Python 3.x
-- Docker (running)
+**Requirements:** Python 3.x, Docker (running)
 
-## Setup
+```bash
+curl -fsSL https://raw.githubusercontent.com/Flexicon/launchpad/main/install.sh | sudo bash
+```
+
+That's it. Launchpad will be running at **http://localhost:7777** and will start automatically on boot.
+
+Then add your services:
+
+```bash
+cp /opt/launchpad/services.example.yaml /opt/launchpad/services.yaml
+# edit the config with your preferred text editor
+vim /opt/launchpad/services.yaml
+```
+
+The install script clones the repo to `/opt/launchpad`, creates a dedicated system user, installs Python dependencies into a virtualenv, and registers the systemd service.
+
+## Manual Setup
 
 Install dependencies:
 
@@ -30,16 +45,6 @@ python app.py
 ```
 
 Launchpad will be available at **http://localhost:7777**.
-
-## Linux / systemd
-
-To install as a persistent system service on Linux with systemd:
-
-```bash
-sudo bash setup.sh
-```
-
-This creates a `launchpad` system user, installs dependencies into a virtualenv at `/opt/launchpad`, and starts the service automatically on boot.
 
 ## Configuration
 
