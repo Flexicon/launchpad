@@ -2,6 +2,8 @@
 
 A homeserver index page that displays your configured services and running Docker containers.
 
+![Launchpad Screenshot](demo.png)
+
 ## Requirements
 
 - Python 3.x
