@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Launchpad</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='graffiti.css') }}">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
   <!-- Theme: Berry -->
   <style>
     :root {
@@ -33,8 +34,11 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <strong>Launchpad</strong>
+  <header class="header" style="padding-inline: 0px;">
+    <span class="cluster">
+      <img src="{{ url_for('static', filename='logo.svg') }}" alt="" width="24" height="24">
+      <strong>Launchpad</strong>
+    </span>
   </header>
 
   <main class="stack">
